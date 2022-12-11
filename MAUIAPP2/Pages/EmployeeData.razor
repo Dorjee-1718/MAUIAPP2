@@ -1,0 +1,56 @@
+﻿@page "/employeedata"
+
+@using MAUIAPP2.Data
+@using MAUIAPP2.Data.Model
+@inject EmployeeModelService EmployeeService
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (employees == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Address</th>
+                <th>DoB</th>
+                <th>IsMarried</th>
+                <th>JoinedDate</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var data in employees)
+            {
+                <tr>
+                    <td>@data.Id</td>
+                    <td>@data.Name</td>
+                    <td>@data.Age</td>.
+                    <td>@data.Address</td>
+                    <td>@data.DoB.ToShortDateString()</td>
+                    <td>@data.IsMarried</td>
+                    <td>@data.JoinedDate.ToShortDateString()</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<EmployeeModel> employees;
+
+    protected override async Task OnInitializedAsync()
+    {
+        employees = EmployeeService.EmployeeDetails();
+    }
+}
+
